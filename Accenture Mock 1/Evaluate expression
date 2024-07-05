@@ -1,0 +1,136 @@
+Evaluate expression
+
+Problem statement
+
+You are given a function,
+
+Int EvaluateExpression(char* expr);
+
+The function accepts a mathematical expression ‘expr’ as a parameter. Implement the function to evaluate the given expression.
+
+Assumption:
+
+•You can assume there is no space in between any of the characters of the expression ‘expr’
+
+•Expression ‘expr’ contains only digits and operators
+
+Note:
+
+•Every operation should be integer based e.g: 5/2 should be given 2, not 2.5
+
+•Consider the precedence of operators while evaluating the expressions, precedence of(‘/’ or ‘*’ ) > precedence of(‘+’ or ‘-’)
+
+•If ‘expr’ has multiple operators of the same precedence then evaluate them from left to right.
+
+Example:
+
+Input:
+
+Expr: 2+3+5*4/2
+
+Output:
+
+15
+
+Explanation:
+
+2+3+5*4/2= 2+3+10=15, hence 15 is the evaluated value.
+
+The custom input format for the above case:
+
+9
+
+2+3+5*4/2
+
+(The first line represents the length of the string, the second line represents the string)
+
+Sample Input
+
+Expr: 22+15-2*7/3
+
+Sample Output
+
+33
+
+The custom input format for the above case:
+
+11
+
+22+15-2*7/3
+
+(The first line represents the length of the string, the second line represents the string)
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+import java.util.*;
+public class Main 
+{
+    private static int Oper(int a, int b, char op) 
+	{
+        switch (op) 
+		{
+            case '+': return a + b;
+            case '-': return a - b;
+            case '*': return a * b;
+            case '/': return a / b;
+        }
+        return 0;
+    }
+    public static int evaluate(String expr) 
+	{
+        Stack<Integer> numStack = new Stack<>();
+        Stack<Character> opStack = new Stack<>();
+        int n = expr.length();
+        for (int i = 0; i < n; ) 
+		{
+            if (Character.isDigit(expr.charAt(i))) 
+			{
+                int num = 0;
+                while (i < n && Character.isDigit(expr.charAt(i))) 
+				{
+                    num = num * 10 + (expr.charAt(i) - '0');
+                    i++;
+                }
+                numStack.push(num);
+            } 
+			else 
+			{
+                while (!opStack.isEmpty() && ((expr.charAt(i) == '+' || expr.charAt(i) == '-') || 
+                       (expr.charAt(i) == '*' || expr.charAt(i) == '/') && 
+                       (opStack.peek() == '*' || opStack.peek() == '/'))) 
+				{
+                    int b = numStack.pop();
+                    int a = numStack.pop();
+                    char op = opStack.pop();
+                    numStack.push(Oper(a, b, op));
+                }
+                opStack.push(expr.charAt(i));
+                i++;
+            }
+        }
+        while (!opStack.isEmpty()) 
+		{
+            int b = numStack.pop();
+            int a = numStack.pop();
+            char op = opStack.pop();
+            numStack.push(Oper(a, b, op));
+        }
+        return numStack.pop();
+    }
+    public static void main(String[] args) 
+	{
+        Scanner sc = new Scanner(System.in);
+        int len = sc.nextInt();
+        sc.nextLine(); 
+        String expr = sc.nextLine();
+        if (expr.length() != len) 
+		{
+         return;
+        } 
+		else 
+		{
+            int result = evaluate(expr);
+            System.out.println(+ result);
+        }
+    }
+}
