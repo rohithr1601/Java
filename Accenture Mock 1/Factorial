@@ -1,0 +1,88 @@
+Factorial
+
+Problem statement
+
+You are given a function:
+
+long long int Factorial(int n, int m);
+
+The function accepts two integers ‘n’ and ‘m’ (where ‘m’ ≤ ‘n’ and ‘n’-’m’ < 10). Implement the function to return the value of ‘n’/’m’.
+
+Example:
+
+Input:
+
+n:7
+
+m: 2
+
+Output:
+
+2520
+
+Explanation:
+
+Factorial of 7 and 2 will be 5040 and 2 respectively.So the result will be 2520.
+
+The custom input format for the above case:
+
+7 2
+
+(The line represents ‘n’ and ‘m’ respectively)
+
+Sample input:
+
+n: 5
+
+m: 2
+
+Sample Output
+
+60
+
+The custom input format for the above case:
+
+5 2
+
+(The line represents ‘n’ and ‘m’ repestively).
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+import java.util.*;
+public class Main 
+{
+    public static long fact(int num) 
+	{
+        long result = 1;
+        for (int i = 1; i <= num; i++) 
+		{
+            result *= i;
+        }
+        return result;
+    }
+    public static long Factorial(int n, int m) 
+	{
+        long factn = fact(n);
+        long factm = fact(m);
+        return factn / factm;
+    }
+	public static void main(String[] args) 
+	{
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        if (m <= n && (n - m) < 10) 
+		{
+            long res = Factorial(n, m);
+            System.out.println("" + res);
+        } 
+		else 
+		{
+            System.out.println("Invalid input: Ensure m ≤ n and n - m < 10.");
+        }
+    }
+}
