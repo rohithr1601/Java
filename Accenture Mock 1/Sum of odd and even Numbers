@@ -1,0 +1,80 @@
+QUESTION 01
+bookmark_border
+Odd even sum
+
+Problem statement:
+
+Implement of following function:
+
+Int odd Even sum(int num);
+
+The function accepts a non-negative integer ‘num’ as its argument. Implement the function to find the sum of all odd digits and sum of all digits of ‘num’and return sum without value is greater
+
+Example:
+
+Input:
+
+98631
+
+Output:
+
+14
+
+Explanation:
+
+•Sum of odd digits = 9+3+1+=13
+
+•Sum of even digits =8+6=14
+
+Since(13<14),thus output is 14
+
+The custom input format for the above case:
+
+98631
+
+(The line represent ‘num’)
+
+Sample input:
+
+274695
+
+Sample output
+
+21
+
+The custom input format for the above case:
+
+274695
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+import java.util.Scanner;
+
+public class Main {
+    public static int oddEvenSum(int num) {
+        int oddSum = 0;
+        int evenSum = 0;
+        
+        while (num > 0) {
+            int digit = num % 10;
+            num /= 10;
+            
+            if (digit % 2 == 0) {
+                evenSum += digit;
+            } else {
+                oddSum += digit;
+            }
+        }
+        
+        return Math.max(oddSum, evenSum);
+    }
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+        
+        int result = oddEvenSum(num);
+        
+        System.out.println(result);
+    }
+}
