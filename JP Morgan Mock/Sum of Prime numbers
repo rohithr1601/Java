@@ -1,0 +1,116 @@
+Raj and max wanted to test their students' learning ability. Hence they came up with a problem. The problem consists of a string containing an integer. You should convert the string to its equivalent integer and then find the sum of prime number(s) lesser than the integer value of the string. There can be negative number also hence you need to multiply the negative value by 11. In case of invalid string print the output as 0.
+
+You have been provided with a strict instruction that you should not use atoi() function in this problem.
+
+
+
+Input Format:
+
+String contains the integer value.
+
+
+
+Output Format:
+
+Should be an Integer.
+
+
+
+Sample Input:
+
+12
+
+
+
+Sample output:
+
+28
+
+
+
+Explanation:
+
+2+3+5+7+11 = 28
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+import java.util.Scanner;
+public class Main 
+{
+    public static void main(String[] args) 
+	{
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        Integer n = strtoint(str);
+        if (n == null) 
+		{
+            System.out.println(0);
+            return;
+        }
+        if (n < 0) 
+		{
+            n *= 11;
+			System.out.println(n);
+			return;
+        }
+        int res = sum(Math.abs(n));
+        System.out.println(res);
+    }
+    public static Integer strtoint(String str) 
+	{
+        int n = 0;
+        int sign = 1;
+        int start = 0;
+        if (str.length() == 0) 
+		{
+            return null;
+        }
+        if (str.charAt(0) == '-') 
+		{
+            sign = -1;
+            start = 1;
+        } 
+		else if (str.charAt(0) == '+') 
+		{
+            start = 1;
+        }
+        for (int i = start; i < str.length(); i++) 
+		{
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') 
+			{
+                return null; 
+            }
+            n = n * 10 + (c - '0');
+        }
+        return n * sign;
+    }
+    public static int sum(int n) 
+	{
+        if (n < 2) return 0;
+        boolean[] isPrime = new boolean[n];
+        for (int i = 2; i < n; i++) 
+		{
+            isPrime[i] = true;
+        }
+        for (int i = 2; i * i < n; i++) 
+		{
+            if (isPrime[i]) 
+			{
+                for (int j = i * i; j < n; j += i) 
+				{
+                    isPrime[j] = false;
+                }
+            }
+        }
+        int s = 0;
+        for (int i = 2; i < n; i++) 
+		{
+            if (isPrime[i]) 
+			{
+                s += i;
+            }
+        }
+        return s;
+    }
+}
