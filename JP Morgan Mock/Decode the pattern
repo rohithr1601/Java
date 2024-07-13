@@ -1,0 +1,92 @@
+Decode the logic and print the pattern that corresponds to the given input.
+
+
+
+Input Format
+
+Single Integer N.
+
+
+
+Output Format
+
+Output is the form of pattern.
+
+
+
+Constraints
+
+2<=N<=100
+
+
+
+Refer the sample output for formatting
+
+Sample Input:
+
+3
+
+Sample Output:
+
+10203010011012
+
+  **4050809
+
+  ****607
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+import java.util.*;
+class Main
+{
+  static int sum (int n)
+  {
+	return n * (n - 1) / 2;
+  }
+  static void pattern(int n)
+  {
+	int Val = 0, Pthree = 0, cnt = 0, initial = -1;
+	String st = "**";
+	for (int i = 0; i < n; i++)
+	  {
+		cnt = 0;
+		if (i > 0)
+		  {
+			System.out.print (st);
+			st += "**";
+		  }
+		for (int j = i; j < n; j++)
+		  {
+			if (i > 0)
+			  {
+				cnt++;
+			  }
+			System.out.print (++Val);
+			System.out.print ("0");
+		  }
+		if (i == 0)
+		  {
+			int s = sum (Val) * 2;
+			Pthree = Val + s + 1;
+			initial = Pthree;
+		  }
+		initial = initial - cnt;
+		Pthree = initial;
+		for (int k = i; k < n; k++)
+		  {
+			System.out.print (Pthree++);
+			if (k != n - 1)
+			  {
+				System.out.print ("0");
+			  }
+		  }
+		System.out.println ();
+	  }
+  }
+  public static void main (String[]args)
+  {
+	Scanner sc = new Scanner (System.in);
+	int n = sc.nextInt ();
+	pattern (n);
+  }
+}
