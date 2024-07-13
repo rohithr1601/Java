@@ -1,0 +1,104 @@
+Number of Inversion Pairs
+
+
+
+Let j and k be two indices in an array A.
+
+If j < k and A[j] > A[k], then the pair (j, k) is known as an “Inversion pair”.
+
+
+
+The input will contain an array ‘A’ of ‘n’ unique integers as its argument. You are required to calculate the number of ‘Inversion pair’ in an array A, and print the same.
+
+
+
+Note:
+
+If ‘A’ is NULL (None in case of python), return -1
+If n < 2, return 0
+
+
+Input format:
+
+First line: Size of the array
+
+Second line: Array elements separated by spaces
+
+
+
+Example:
+
+Sample Input 0:
+
+5
+
+1 20 6 4 5
+
+Sample Output 0:
+
+5
+
+Explanation 0:
+
+The inversion pair in array A are (20,6),(20,4),(20,5),(6,4) and (6,5), the count of the inversions are 5, hence 5 is returned.
+
+
+
+Sample Input 1:
+
+7
+
+13 10 9 6 21 15 14
+
+Sample Output 1:
+
+9
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+import java.util.*;
+public class Main 
+{
+    public static void main(String[] args) 
+	{
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        if (n < 1) 
+		{
+            System.out.println(-1);
+            sc.close();
+            return;
+        }
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) 
+		{
+            a[i] = sc.nextInt();
+        }
+        System.out.println(inversions(a));
+    }
+    public static int inversions(int[] a) 
+	{
+        if (a == null) 
+		{
+            return -1;
+        }
+        if (a.length < 2) 
+		{
+            return 0;
+        }
+        int c = 0;
+        for (int j = 0; j < a.length - 1; j++) 
+		{
+            for (int k = j + 1; k < a.length; k++) 
+			{
+                if (a[j] > a[k]) 
+				{
+                    c++;
+                }
+            }
+        }
+        return c;
+    }
+}
