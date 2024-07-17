@@ -1,0 +1,75 @@
+QUESTION 02
+bookmark_border
+Given an array of size N. Which has the following specifications: Each element in the array contains either a policeman or a thief. Each policeman can catch only one thief. A policeman cannot catch a thief who is more than K units away from him. We need to find the maximum number of thieves that can be caught.
+
+
+
+Input Format:
+
+First line - n, the size of array
+
+Second line - all the n elements either 'P' or 'T'
+
+
+
+Output Format:
+
+Print a single integer representing maximum number of thieves that can be caught.
+
+
+
+Sample Input:
+
+6
+
+P T P T T P
+
+3
+
+
+
+Sample Output:
+
+3
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+import java.util.*;
+class Main
+{
+  public static void main(String args[])
+  {
+	  Scanner sc = new Scanner(System.in);
+	  int n = sc.nextInt();
+	  char[] a = new char[n];
+	  for(int i=0;i<n;i++)
+	  {
+		  a[i] = sc.next().charAt(0);
+	  }
+	  int k = sc.nextInt();
+	  int c = 0;
+	  boolean[] b = new boolean[a.length];
+	  for(int i=0;i<n;i++)
+	  {
+		  if(a[i] == 'P')
+		  {
+			  int l = Math.max(0, i-k);
+			  int h = Math.min(n-1, i+k);
+			  for(int  j=l;j<=h;j++)
+			  {
+				  if(a[j] == 'T' && !b[j])
+				  {
+					  c++;
+					  b[j] = true;
+					  break;
+				  }
+			  }
+		  }
+	  }
+	  
+    	System.out.println(c);
+  }
+}
