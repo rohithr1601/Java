@@ -1,0 +1,183 @@
+You are given a tree (a connected undirected graph without cycles) of n vertices. Each of the n−1 edges of the tree is colored in either black or red.
+
+You are also given an integer k. Consider sequences of k vertices. Let's call a sequence [a1,a2,…,ak] good if it satisfies the following :
+
+We will walk a path (possibly visiting same edge/vertex multiple times) on the tree, starting from a1 and ending at ak.
+Start at a1, then go to a2 using the shortest path between a1 and a2, then go to a3 in a similar way, and so on, until you travel the shortest path between ak−1 and ak.
+If you walked over at least one black edge during this process, then the sequence is good.
+
+
+
+
+If we have tree formed by the edges :
+
+1 - 2, 2 - 4, 2 - 6, 6 - 5, 6 - 3, 3 - 7
+
+ If k=3 then the following sequences are good: [1,4,7], [5,5,3] and [2,3,7]. The following sequences are not good: [1,4,6], [5,5,5], [3,7,3].
+
+There are n ^ k sequences of vertices, count how many of them are good. Since this number can be quite large, print it modulo 10^9+7.
+
+
+
+Input Format :
+
+The first line contains two integers n and k (2≤n≤10^4 2≤k≤100), the size of the tree and the length of the vertex sequence.
+
+Each of the next n−1 lines contains three integers ui, vi and xi (1≤ui,vi≤n, xi∈{0,1}) where ui and vi denote the endpoints of the corresponding edge and xi is the color of this edge (0 denotes red edge and 1 denotes black edge).
+
+
+
+Output Format :
+
+Print the number of good sequences modulo 10^9+7.
+
+
+
+Sample Input 1:
+
+4 4
+
+1 2 1
+
+2 3 1
+
+3 4 1
+
+
+
+Sample Output 1:
+
+252
+
+
+
+Sample Input 2:
+
+4 6
+
+1 2 0
+
+1 3 0
+
+1 4 0
+
+
+
+Sample Output 2:
+
+0
+
+
+
+Sample Input 3 :
+
+3 5
+
+1 2 1
+
+2 3 0
+
+
+
+Sample Output 3:
+
+210
+
+
+
+Explanation :
+
+In the first example, all sequences (4^4) of length 4 except the following are good:
+
+[1,1,1,1]
+[2,2,2,2]
+[3,3,3,3]
+[4,4,4,4]
+In the second example, all edges are red, hence there aren't any good sequences.
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+import java.util.*;
+import java.io.*;
+public class Main 
+{
+    static final int MOD = 1000000007;
+    public static void main(String[] args) throws IOException 
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] firstLine = br.readLine().split(" ");
+        int n = Integer.parseInt(firstLine[0]);
+        int k = Integer.parseInt(firstLine[1]);
+        List<List<int[]>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) 
+        {
+            adj.add(new ArrayList<>());
+        }
+        for (int i = 0; i < n - 1; i++) 
+        {
+            String[] edge = br.readLine().split(" ");
+            int u = Integer.parseInt(edge[0]) - 1;
+            int v = Integer.parseInt(edge[1]) - 1;
+            int color = Integer.parseInt(edge[2]);
+            adj.get(u).add(new int[]{v, color});
+            adj.get(v).add(new int[]{u, color});
+        }
+        boolean[] visited = new boolean[n];
+        List<Integer> c= new ArrayList<>();
+        for (int i = 0; i < n; i++) 
+        {
+            if (!visited[i]) 
+            {
+                c.add(dfs(i, adj, visited));
+            }
+        }
+        long t = modPow(n, k, MOD);
+        long b= 0;
+        for (int size : c) 
+        {
+            b = (b + modPow(size, k, MOD)) % MOD;
+        }
+        long g = (t - b + MOD) % MOD;
+        System.out.println(g);
+    }
+    static int dfs(int node, List<List<int[]>> adj, boolean[] visited) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(node);
+        visited[node] = true;
+        int size = 0;
+        while (!stack.isEmpty()) 
+        {
+            int u = stack.pop();
+            size++;
+            for (int[] neighbor : adj.get(u)) 
+            {
+                int v = neighbor[0];
+                int color = neighbor[1];
+
+                if (color == 0 && !visited[v]) {
+                    visited[v] = true;
+                    stack.push(v);
+                }
+            }
+        }
+        return size;
+    }
+    static long modPow(long base, long exp, long mod) 
+    {
+        long result = 1;
+        while (exp > 0) 
+        {
+            if ((exp & 1) == 1) 
+            {
+                result = (result * base) % mod;
+            }
+            base = (base * base) % mod;
+            exp >>= 1;
+        }
+        return result;
+    }
+}
