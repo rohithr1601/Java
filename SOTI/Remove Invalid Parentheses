@@ -1,0 +1,130 @@
+Remove Invalid Parentheses
+
+
+
+You have given a string s that contains parentheses and letters, remove the minimum number of invalid parentheses to make the input string valid.
+
+Return all the possible results in sorted order and in new line.
+
+
+
+Note: Before printing the answer pass is through the inbuilt sort function "sort(name.begin(), name.end())".
+
+
+
+Input Format:
+
+Only line will contain one string s.
+
+
+
+Output Format:
+
+All Possible results in sorted manner.
+
+
+
+Sample Input 1:
+
+()())()
+
+
+
+Sample Output 1:
+
+(())()
+
+()()()
+
+
+
+Sample Input 2:
+
+(a)())()
+
+
+
+Sample Output 2:
+
+(a())()
+
+(a)()()
+
+
+
+Constraints:
+
+1 <= s.length <= 25
+s consists of lowercase English letters and parentheses '(' and ')'.
+There will be at most 20 parentheses in s.
+
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+import java.util.*;
+public class Main 
+{
+    private static boolean isValid(String s) 
+	{
+        int count = 0;
+        for (char c : s.toCharArray()) 
+		{
+            if (c == '(') count++;
+            if (c == ')') count--;
+            if (count < 0) return false;
+        }
+        return count == 0;
+    }
+    public static List<String> remove(String s) 
+	{
+        List<String> r = new ArrayList<>();
+        if (s == null) return r;
+        Set<String> v = new HashSet<>();
+        Queue<String> q = new LinkedList<>();
+        q.add(s);
+        v.add(s);
+        boolean f= false;
+        while (!q.isEmpty()) 
+        {
+            int size = q.size();
+            Set<String> l = new HashSet<>();
+            for (int i = 0; i < size; i++) 
+			{
+                String current = q.poll();
+                if (isValid(current)) 
+				{
+                    r.add(current);
+                    f = true;
+                }
+                if (f) continue;
+                for (int j = 0; j < current.length(); j++) 
+				{
+                    if (current.charAt(j) != '(' && current.charAt(j) != ')') continue;
+                    String nextState = current.substring(0, j) + current.substring(j + 1);
+                    if (!v.contains(nextState)) 
+					{
+                        v.add(nextState);
+                        q.add(nextState);
+                    }
+                }
+            }
+            if (f) break;
+        }
+        Collections.sort(r);
+        return r;
+    }
+    public static void main(String[] args) 
+	{
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        List<String> r = remove(str);
+        for (String i : r) 
+		{
+            System.out.println(i);
+        }
+    }
+}
