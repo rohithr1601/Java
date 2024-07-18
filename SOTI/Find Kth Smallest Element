@@ -1,0 +1,75 @@
+Find Kth Smallest Element
+
+
+
+Given an array A and an integer K where K is smaller than size of array, the task is to find the Kth smallest element in the given array. It is given that all array elements are distinct.
+
+
+
+Input Format :
+
+First line of input will contains two integers N and K - size of the array and given number number k respectively.
+
+The second line contains N space-separated integers, the elements of the array.
+
+
+
+Output Format :
+
+Only line of output should contain one integer which is Kth smallest in the given array.
+
+
+
+Example 1:
+
+Input:
+6 3
+7 10 4 3 20 15
+
+Output : 7
+Explanation :
+3rd smallest element in the given 
+array is 7.
+Example 2:
+
+Input:
+5 4
+7 10 4 20 15
+
+Output : 15
+Explanation :
+4th smallest element in the given 
+array is 15.
+
+
+
+
+Constraints:
+
+1 <= N <= 10^5
+
+1 <= A[i] <= 10^5
+
+1 <= K <= N
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+import java.util.*;
+class Main
+{
+  public static void main(String args[])
+  {
+	  Scanner sc = new Scanner(System.in);
+	  int n = sc.nextInt();
+	  int k = sc.nextInt();
+	  int[] a = new int[n];
+	  for(int i=0;i<n;i++)
+	  {
+		  a[i] = sc.nextInt();
+	  }
+	  Arrays.sort(a);
+      System.out.println(a[k-1]);
+  }
+}
