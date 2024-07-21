@@ -1,0 +1,121 @@
+Invert the Binary Tree
+
+
+Given the root of a binary tree, invert the tree, and return its root. Print the Inorder traversal of the inverted tree.
+
+
+
+Input format:
+
+The input consists of one line, space-separated elements denoting the nodes of the Binary Tree.
+
+
+
+Output format:
+
+Print the inorder traversal of the inverted tree in a single line.
+
+
+
+Example 1:
+
+
+
+
+
+Example 2:
+
+
+
+Test Case 2
+​
+Input
+4 4 10 5 10 7 2 N 3 8
+Output
+2 10 7 4 10 8 4 3 5
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+import java.util.*;
+
+class Node {
+    int data;
+    Node left, right;
+
+    Node(int val) {
+        data = val;
+        left = right = null;
+    }
+}
+
+public class Main {
+    public static void inorder(Node temp) {
+        if (temp == null) {
+            return;
+        }
+        inorder(temp.left);
+        System.out.print(temp.data + " ");
+        inorder(temp.right);
+    }
+
+    public static void invert(Node node) {
+        if (node == null) {
+            return;
+        }
+        Node temp = node.left;
+        node.left = node.right;
+        node.right = temp;
+        invert(node.left);
+        invert(node.right);
+    }
+
+    public static Node createTree(Queue<Integer> input) {
+        if (input.isEmpty()) {
+            return null;
+        }
+        Integer val = input.poll();
+        if (val == null || val == 'N') {
+            return null;
+        }
+        Node root = new Node(val);
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+
+        while (!q.isEmpty() && !input.isEmpty()) {
+            Node temp = q.poll();
+            Integer leftVal = input.poll();
+            Integer rightVal = input.poll();
+
+            if (leftVal != null && leftVal != 'N') {
+                temp.left = new Node(leftVal);
+                q.add(temp.left);
+            }
+            if (rightVal != null && rightVal != 'N') {
+                temp.right = new Node(rightVal);
+                q.add(temp.right);
+            }
+        }
+        return root;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String[] inputStr = sc.nextLine().split(" ");
+        Queue<Integer> input = new LinkedList<>();
+        
+        for (String s : inputStr) {
+            if (s.equals("N")) {
+                input.add(null);
+            } else {
+                input.add(Integer.parseInt(s));
+            }
+        }
+
+        Node root = createTree(input);
+        invert(root);
+        inorder(root);
+        sc.close();
+    }
+}
