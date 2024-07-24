@@ -1,0 +1,113 @@
+QUESTION 01
+bookmark_border
+Suppose you have two points p(xp, yp) and q(xq, yq). The Manhattan distance between the points is given by d(p, q) = | xp - xq | + | yp - yq |.
+
+Lets call a triplet of points (p, q, r) unstable if d(p, q) = d(p, r) + d(q, r). An array A1, A2, ...An is called stable if it is impossible to pick three indices
+
+i, j, k such that the triplet of points [ (Ai, i), (Aj, j), (Ak, k) ] is unstable. You are given an array A1, A2, ...An. Calculate the number of stable subarrays of this array. A subarray of an array is defined as the array Al, Al + 1, ...Ar for some 1 <= l <= r <= n.
+
+
+
+Input
+
+The first line contains a single integer N - The size of the array
+
+The next line contains N space separated integers - the elements of the array.
+
+
+
+Output
+
+Print the number of stable subarrays of this array
+
+
+
+Constraints
+
+1 <= N, A[i] <= 100000
+
+
+
+Example
+
+Input
+
+4
+
+2 4 1 3
+
+Output
+
+10
+
+
+
+Input
+
+5
+
+6 9 1 9 6
+
+Output
+
+12
+
+
+
+Explanation
+
+Testcase 1: It can be shown that all subarrays of this array are stable.
+
+Testcase 2: Subarray [A1, A2, A3, A4] is unstable as [(A1, 1), (A2, 2), (A4, 4)] is a unstable triplet.
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) 
+	{
+	    Scanner sc = new Scanner(System.in);
+	    int n = sc.nextInt();
+	    int[] a = new int[n];
+	    for(int i = 0; i < n ; i++)
+	    {
+	        a[i] = sc.nextInt();
+	    }
+	    int r = 0;
+	    for(int x = 0; x < n; x++)
+	    {
+	        for(int y = x; y < n; y++)
+	        {
+	            boolean s = true;
+	            for(int i = x ; i <= y && s; i++)
+	            {
+	                for(int j = i+1; j<= y && s; j++)
+	                {
+	                    for(int k =j+1; k<= y ; k++)
+	                    {
+	                        int x1 = a[i], y1 = i;
+	                        int x2 = a[j], y2 = j;
+	                        int x3 = a[k], y3 = k;
+	                        int d1 = Math.abs(x1 - x2) + Math.abs(y1 - y2);
+                            int d2 = Math.abs(x1 - x3) + Math.abs(y1 - y3);
+                            int d3 = Math.abs(x2 - x3) + Math.abs(y2 - y3);
+                            if( d1 == d2 + d3 || d2 == d1 + d3 || d3 == d1 + d2)
+                            {
+                                s = false;
+                                break;
+                            }
+	                    }
+	                }
+	            }
+	            if(s)
+	            {
+	                r++;
+	            }
+	        }
+	    }
+	    System.out.println(r);
+	}
+}
