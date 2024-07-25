@@ -1,0 +1,228 @@
+You have given a tree with N nodes (numbered from 1 to N). There are K special nodes f1, f2, . . fk in the tree.
+
+d(p, q) is defined as the number of edges on the unique path from node p to node q.
+
+
+
+You are given a node a. For each node b from 1 to N, find the maximum value of d(a, u)−d(b, u) where u is a special node, as well as any special node u for which that maximum value is attained.
+
+
+
+Note : The given graph is a tree.
+
+
+
+Input Format :
+
+First line of input will contain one integer t (1 <= t <= 50) - number of test cases.
+
+Second line of each test case will contain three integers N, K and a (1 <= N <= 50000, 1 <= a, K <= N, 1 <= f[i] <= N and f[i] ≠ f[j] if i ≠ j) - number of vertices in the tree , number of special nodes and given value of a respectively.
+
+
+
+Output Format :
+
+For each test case print two lines.
+
+
+
+In the first line print N space-separated integers. For each valid i, the i-th integer should be the maximum value of d(a, u)−d(i, u) where u is a special node.
+
+
+
+In the second line print N space-separated integers. For each valid i, the i-th integer should be any special node u for which the maximum of d(a, u)−d(i, u) is attained.
+
+
+
+Sample Input 1:
+
+1
+
+1
+
+5 1 3
+
+2
+
+1 2
+
+1 3
+
+2 4
+
+2 5
+
+
+
+Sample Output 1:
+
+1 2 0 1 1
+
+2 2 2 2 2
+
+
+
+Sample Input 2:
+
+1
+
+1
+
+8 3 2
+
+6 5 8
+
+1 2
+
+2 3
+
+2 4
+
+2 5
+
+4 6
+
+5 7
+
+5 8
+
+
+
+Sample Output 2:
+
+-1 0 -1 1 1 2 0 2
+
+5 5 5 6 5 6 5 8
+
+
+
+Explanation Case 1 :
+
+The node which is bold in the example is a special node.
+
+1 - 2, 1 - 3, 2 - 4, 2 - 5
+
+The only special node is the node 2 and a=3. Therefore, the desired maximum is d(a,2) − d(b,2) = d(3,2) − d(b,2) = 2 − d(b,2) for each node b and it is always attained for the special node u=2.
+
+
+
+Explanation Case 2 :
+
+The node which is bold in the example is a special node.
+
+1 - 2, 2 - 3, 2 - 4, 2 - 5, 5 - 8, 5 - 7, 4 - 6
+
+The special nodes are 6, 5 and 8, and a=2. The maximum values of d(a, u)−d(b, u) (u being a special node) for each b are as follows:
+
+b=1: The maximum value of d(2,u)−d(1,u) is -1 and it is achieved for u=5 since d(2,5)−d(1,5)=1−2=−1.
+
+
+b=2: The maximum value of d(2,u)−d(2,u) is 0 and it is achieved for u=5 since d(2,5)−d(2,5)=1−1=0.
+
+
+b=3: The maximum value of d(2,u)−d(3,u) is −1 and it is achieved for u=5 since d(2,5)−d(3,5)=1−2=−1.
+
+
+b=4: The maximum value of d(2,u)−d(4,u) is 1 and it is achieved for u=6 since d(2,6)−d(4,6)=2−1=1.
+
+
+b=5: The maximum value of d(2,u)−d(5,u) is 1 and it is achieved for u=5 since d(2,5)−d(5,5)=1−0=1.
+
+
+b=6: The maximum value of d(2,u)−d(6,u) is 2 and it is achieved for u=6 since d(2,6)−d(6,6)=2−0=2.
+
+
+b=7: The maximum value of d(2,u)−d(7,u) is 0 and it is achieved for u=5 since d(2,5)−d(7,5)=1−1=0.
+
+
+b=8: The maximum value of d(2,u)−d(8,u) is 2 and it is achieved for u=8 since d(2,8)−d(8,8)=2−0=2.
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+import java.util.*;
+public class Main 
+{
+    public static void main(String[] args) 
+	{
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) 
+		{
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+            int a = sc.nextInt() - 1;
+            int[] snodes = new int[k];
+            for (int i = 0; i < k; i++) 
+			{
+                snodes[i] = sc.nextInt() - 1;
+            }
+            List<List<Integer>> adj = new ArrayList<>(n);
+            for (int i = 0; i < n; i++) 
+			{
+                adj.add(new ArrayList<>());
+            }
+            for (int i = 0; i < n - 1; i++) 
+			{
+                int u = sc.nextInt() - 1;
+                int v = sc.nextInt() - 1;
+                adj.get(u).add(v);
+                adj.get(v).add(u);
+            }
+            int[] da = bfs(n, a, adj);
+            int[] rm = new int[n];
+            int[] rs = new int[n];
+            Arrays.fill(rm, Integer.MIN_VALUE);
+            for (int special : snodes)
+			{
+                int[] ds = bfs(n, special, adj);
+                for (int i = 0; i < n; i++) 
+				{
+                    int value = da[special] - ds[i];
+                    if (value > rm[i])
+					{
+                        rm[i] = value;
+                        rs[i] = special + 1;
+                    }
+                }
+            }
+            for (int i = 0; i < n; i++) 
+			{
+                System.out.print(rm[i] + " ");
+            }
+            System.out.println();
+            for (int i = 0; i < n; i++) 
+			{
+                System.out.print(rs[i] + " ");
+            }
+            System.out.println();
+        }
+    }
+    public static int[] bfs(int n, int start, List<List<Integer>> adj) 
+	{
+        int[] d = new int[n];
+        Arrays.fill(d, -1);
+        Queue<Integer> q = new LinkedList<>();
+        q.add(start);
+        d[start] = 0;
+        while (!q.isEmpty()) 
+		{
+            int u = q.poll();
+            for (int v : adj.get(u)) 
+			{
+                if (d[v] == -1)
+				{
+                    d[v] = d[u] + 1;
+                    q.add(v);
+                }
+            }
+        }
+        return d;
+    }
+}
+
+
+
+
+50% testcase
