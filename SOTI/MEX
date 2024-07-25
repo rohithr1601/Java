@@ -1,0 +1,90 @@
+You are given two integers n and m. Find the MEX of the sequence n⊕0,n⊕1,…,n⊕m. Here, ⊕ is the bitwise XOR operator.
+
+MEX of the sequence of non-negative integers is the smallest non-negative integer that doesn't appear in this sequence. For example, MEX(0,1,2,4)=3, and MEX(1,2021)=0.
+
+
+
+Input
+
+The first line contains a single integer t (1≤t≤30000) — the number of test cases.
+
+The first and only line of each test case contains two integers n and m (0≤n,m≤109).
+
+
+
+Output
+
+For each test case, print a single integer — the answer to the problem.
+
+
+
+Example
+
+input
+
+5
+
+3 5
+
+4 6
+
+3 2
+
+69 696
+
+123456 654321
+
+
+
+output
+
+4
+
+3
+
+0
+
+640
+
+530866
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+import java.util.*;
+public class Main 
+{
+    public static void main(String[] args) 
+    {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) 
+        {
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            System.out.println(mex(n, m));
+        }
+    }
+    public static int mex(int n, int m) 
+    {
+        boolean[] p = new boolean[m + 2];
+        for (int k = 0; k <= m; k++) 
+        {
+            int v = n ^ k;
+            if (v < p.length) 
+            {
+                p[v] = true;
+            }
+        }
+        for (int i = 0; i < p.length; i++) 
+        {
+            if (!p[i]) 
+            {
+                return i;
+            }
+        }
+        return p.length;
+    }
+}
