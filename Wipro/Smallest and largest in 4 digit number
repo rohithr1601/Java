@@ -1,0 +1,118 @@
+Question 1
+
+Revisit Later
+
+JAVA
+
+12345678910120
+
+How to Attempt?
+
+Find Key:
+
+You are provided with 3 numbers: input1, input2 and input3. Each of these are four digit numbers within the range >=1000 and <=9999.
+
+Le 1000<= input1 <= 9999
+
+1000 <= input2 <= 9999 1000 <= input3 <= 9999
+
+You are expected to find the Key using the below formula -
+
+Key = (Sum of Smallest digits of all the 3 numbers) (Sum of Largest digits of all the 3 numbers) For e..g. if input1 = 3521, input2=2452, input3=1352, then Key = (1+2+1)- (5+5+5)=-11
+
+Assuming that the 3 numbers are passed to the given function, Complete the function to find
+
+ Complete the function I will give not don't use any other function 
+
+
+0/2
+
+Compilers Java-17
+
+import java.io.*;
+
+import java.util.";
+
+//tead only region start
+
+class UserMainCode
+
+(
+
+public int findKey(int input1, int input2, int input3)
+
+// Read only region end
+
+// Write code here...
+
+throw new UnsupportedoperationException("findk
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+import java.util.*;
+
+// Read only region start
+class UserMainCode {
+    public int findKey(int input1, int input2, int input3) {
+        // Read only region end
+        // Write code here...
+        // Calculate smallest and largest digits for input1
+        int smallest1 = 9, largest1 = 0;
+        int temp = input1;
+        while (temp > 0) {
+            int digit = temp % 10;
+            if (digit < smallest1) {
+                smallest1 = digit;
+            }
+            if (digit > largest1) {
+                largest1 = digit;
+            }
+            temp /= 10;
+        }
+        
+        // Calculate smallest and largest digits for input2
+        int smallest2 = 9, largest2 = 0;
+        temp = input2;
+        while (temp > 0) {
+            int digit = temp % 10;
+            if (digit < smallest2) {
+                smallest2 = digit;
+            }
+            if (digit > largest2) {
+                largest2 = digit;
+            }
+            temp /= 10;
+        }
+        
+        // Calculate smallest and largest digits for input3
+        int smallest3 = 9, largest3 = 0;
+        temp = input3;
+        while (temp > 0) {
+            int digit = temp % 10;
+            if (digit < smallest3) {
+                smallest3 = digit;
+            }
+            if (digit > largest3) {
+                largest3 = digit;
+            }
+            temp /= 10;
+        }
+        
+        // Calculate sums
+        int sumOfSmallestDigits = smallest1 + smallest2 + smallest3;
+        int sumOfLargestDigits = largest1 + largest2 + largest3;
+        
+        // Calculate Key
+        int key = sumOfSmallestDigits - sumOfLargestDigits;
+        
+        // Placeholder throw statement
+        // throw new UnsupportedOperationException("findKey(int input1, int input2, int input3) method not implemented yet");
+        
+        return key;
+    }
+}
