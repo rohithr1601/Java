@@ -1,0 +1,102 @@
+QUESTION 04
+bookmark_border
+Given two integers S and D, the task is to find the smallest number with sum of digits S and number of digits exactly D.
+
+
+
+Input
+
+The only line of input contains two integers S and D
+
+
+
+Output
+
+Print the smallest number satisfying the conditions
+
+
+
+Constraints
+
+1 <= S <= 100
+
+1 <= D <= 15
+
+
+
+Example
+
+Input
+
+9 2
+
+Output
+
+18
+
+
+
+Input
+
+20 3
+
+Output
+
+299
+
+
+++++++++++++++++++++++++++++++++++++++
+
+
+import java.util.*;
+public class Main 
+{
+    public static void main(String[] args) 
+	{
+        Scanner sc = new Scanner(System.in);
+        int s = sc.nextInt();
+        int d = sc.nextInt();
+        System.out.println(SmallestNum(s, d));
+    }
+    public static int SmallestNum(int s, int d) 
+	{
+        if (s == 0 && d == 1) return 0;
+        if (s == 0 || s > 9 * d) return -1;
+        int[] r = new int[d];
+        for (int i = 0; i < d; i++) 
+		{
+            r[i] = 0;
+        }
+        for (int i = d - 1; i >= 0; i--) 
+		{
+            if (s > 9) 
+			{
+                r[i] = 9;
+                s -= 9;
+            } 
+			else 
+			{
+                r[i] = s;
+                s = 0;
+            }
+        }
+        if (r[0] == 0) 
+		{
+            for (int i = 1; i < d; i++) 
+			{
+                if (r[i] > 0) 
+				{
+                    r[i]--;
+                    r[0] = 1;
+                    break;
+                }
+            }
+        }
+        int n = 0;
+        for (int i = 0; i < d; i++) 
+		{
+            n= n * 10 + r[i];
+        }
+        return n;
+    }
+}
