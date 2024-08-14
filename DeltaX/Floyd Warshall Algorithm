@@ -1,0 +1,114 @@
+QUESTION 02
+bookmark_border
+Floyd Warshall Algorithm
+
+Given a graph in adjacency matrix from. Find shortest distances between every pair of vertices in a given edge weighted directed Graph.
+
+If there is no path from a source to a destination, print -1 at that place.
+
+
+
+Input Format:
+
+First line - n, the number of nodes
+
+Then there are n lines each containing n integers, weight from source(i.e. row number) to destination(i.e. column number).
+
+
+
+Output Format:
+
+Print shortest distances between every pair of vertices. If there is no path from a source to a destination, print -1 at that place.
+
+
+
+Sample Input:
+
+4
+
+0 5 INF 10
+
+INF 0 3 INF
+
+INF INF 0 1
+
+INF INF INF 0
+
+
+
+Sample Output:
+
+0 5 8 9
+
+INF 0 3 4
+
+INF INF 0 1
+
+INF INF INF 0
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+import java.util.*;
+class Main 
+{
+    final static int INF = 99999;
+    void floydWarshall(int dist[][], int V) 
+	{
+        int i, j, k;
+        for (k = 0; k < V; k++) 
+		{
+            for (i = 0; i < V; i++) 
+			{
+                for (j = 0; j < V; j++) 
+				{
+                    if (dist[i][k] + dist[k][j] < dist[i][j])
+					{
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                    }
+                }
+            }
+        }
+        print(dist, V);
+    }
+    void print(int dist[][], int V) 
+	{
+        for (int i = 0; i < V; ++i) 
+		{
+            for (int j = 0; j < V; ++j) 
+			{
+                if (dist[i][j] == INF) 
+				{
+                    System.out.print("-1 ");
+                } 
+				else 
+				{
+                    System.out.print(dist[i][j] + " ");
+                }
+            }
+            System.out.println();
+        }
+    }
+    public static void main(String[] args) 
+	{
+        Scanner sc = new Scanner(System.in);
+        int V = sc.nextInt();
+        int[][] graph = new int[V][V];
+        for (int i = 0; i < V; i++) 
+		{
+            for (int j = 0; j < V; j++) 
+			{
+                graph[i][j] = sc.nextInt();
+                if (graph[i][j] == -1) 
+				{
+                    graph[i][j] = INF;
+                }
+            }
+        }
+        Main a = new Main();
+        a.floydWarshall(graph, V);
+    }
+}
