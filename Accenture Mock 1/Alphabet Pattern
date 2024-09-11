@@ -1,0 +1,103 @@
+QUESTION 02
+bookmark_border
+Problem Statement
+
+The task is to print the triangle of alphabets for the given input.
+
+
+
+Input Format:
+The input contains a single integer which represents the number of rows in the triangle.
+
+
+
+Output Format:
+Triangle of alphabets for the given input integer.
+
+
+
+Constraints:
+1 <= N <= 10
+
+
+
+Sample Input 1:
+5
+
+
+
+Sample Output 1:
+a
+
+aa
+
+bab
+
+cbbc
+
+ecdce
+
+
+
+Explanation:
+This is the required pattern for the given input.
+
+
+Sample Input 2:
+7
+
+
+
+Sample Output 2:
+a
+
+aa
+
+bab
+
+cbbc
+
+ecdce
+
+heffeh
+
+mhjijhm
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+import java.util.*;
+class Main {
+	static void print(int n)
+	{
+		int dp[][] = new int[n][n];
+		dp[0][0] = dp[1][0] = 1;
+		dp[1][1] = 1;
+		for (int i = 2; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				if (i > j)
+					dp[i][j] = dp[i - 1][j] +dp[i - 2][j];
+				else
+					dp[i][j] = dp[i - 1][j - 1] +dp[i - 2][j - 2];
+			}
+		}
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j <= i; j++)
+				System.out.printf("%c",(char)('a'+dp[i][j]-1));	
+			System.out.println();
+		}
+	}
+	public static void main(String[] args)
+	{
+	    Scanner sc =new Scanner(System.in);
+	    int n=sc .nextInt();
+		print(n);
+	}
+}
