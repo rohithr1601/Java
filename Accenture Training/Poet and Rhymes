@@ -1,0 +1,80 @@
+Poet and Rhymes
+A poet has asked you for assistance in writting poems.he has given you a string S and a dictionary D and he asks you to find,from
+the dictionary,aword which rhymes best with S.words are said to rhyme when the last syllables of the words are the same,Like 
+"cave" and "gave",or "typical" and "critical." the words will be deemed to rhyme best if the last few characters of the words match 
+the most.
+your task is to find and return a string value denoting the word which rhyme best with S, from the dictionary D.if no such word is found 
+3650 return thr string "No Word".
+
+NOtE:
+If all the characters match,if is the same word and not a rhyming word.
+all the given wordd are in lowercase
+if multiplle rhuming words are found then choose the word with the last index
+
+Example 1:
+Input :
+input1:thunder
+input2:(puzzle,thunder,powder,blender,under)
+input3:5
+
+OUTPUT:
+under
+
+explaination :
+Here,the given word S is "thunder" we can find the ehyming words/s from the dictionary in the following way:
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+import java.util.*;
+public class Main
+{
+    static void rhymes(String s, String[] str, int n)
+    {
+        int max = 0;
+        String r = "No words";
+        for(int i =0;i<n;i++)
+        {
+            if(!s.equals(str[i]))
+            {
+                int com = match(s, str[i]);
+                if(com > max)
+                {
+                    max = com;
+                    r = str[i];
+                }
+            }
+        }
+        System.out.println(r);
+    }
+    static int match(String s, String m)
+    {
+        int i = s.length()-1;
+        int j = m.length()-1;
+        int c = 0;
+        while(i>= 0 && j>= 0 && s.charAt(i)==m.charAt(j))
+        {
+            c++;
+            i--;
+            j--;
+        }
+        return c;
+    }
+	public static void main(String[] args) 
+	{
+	Scanner sc = new Scanner(System.in);
+	String s = sc.nextLine();
+	int n = sc.nextInt();
+    sc.nextLine();
+	String[] str = new String[n];
+	for(int i =0;i<n;i++)
+	{
+	    str[i] = sc.nextLine();
+	}
+	rhymes(s,str,n);
+}
+}
