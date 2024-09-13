@@ -1,0 +1,32 @@
+CANOPY  area 
+
+You are developing a feature for an environmental awareness app that helps users to know how much
+area their trees shadow covers.you have the distance D from a trees trunk to the edge of the shadow
+your task is to calculate and return an integer value representing the shadow area of the canopy.
+
+NOTE : Round off the result to nearest integer
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+import java.util.*;
+public class Main
+{
+    static void circum(int d)
+    {
+        
+        double a = 3.14 * d* d;
+        if((a*10)%10>5)
+        {
+            System.out.println(Math.floor(a));
+        }
+        else{
+            System.out.println(Math.ceil(a));
+        }
+    }
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+	    int d = sc.nextInt();
+	    circum(d);
+	}
+}
