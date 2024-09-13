@@ -16,7 +16,7 @@ of 4 is 2 times.therefore,2 is returned as the output.
 import java.util.*;
 public class Main
 {
-    static int counting(int[] a, int n)
+    static int smaxi(int[] a,int n)
     {
         int max = -1;
         int smax = -1;
@@ -32,6 +32,24 @@ public class Main
                 smax = a[i];
             }
         }
+        return smax;
+    }
+    static int smaxi1(int[] a , int n)
+    {
+        int smax = 0;
+        for(int i =n-1;i>0;i--)
+        {
+            if(a[n-1] != a[i])
+            {
+                smax = a[i];
+                break;
+            }
+        }
+        return smax;
+    }
+    static int counting(int[] a, int n)
+    {
+        int smax = smaxi1(a,n);
         int c = 0;
         for(int i=0; i<n;i++ )
         {
