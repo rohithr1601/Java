@@ -1,0 +1,41 @@
+Sample input 1
+STDIN         Function parameter
+abaabbbc --> message = "abaabbbc"
+
+Sample Output 1:
+aba2b3c
+
+++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+import java.util.*;
+public class Main
+{
+    static String compressStr(String str)
+    {
+        String r = "";
+        int c = 1;
+        for(int i =0;i<str.length();i++)
+        {
+            if((i+1) < str.length() && str.charAt(i) == str.charAt(i+1))
+            {
+                c++;
+            }
+            else
+            {
+                r += str.charAt(i);
+                if(c>1)
+                {
+                    r += c;
+                }
+                c=1;
+            }
+        }
+        return r;
+    }
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+	    String str = sc.nextLine();
+	    System.out.println(compressStr(str));
+	}
+}
