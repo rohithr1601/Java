@@ -1,0 +1,44 @@
+MINiMUM  UNIT 
+ Tom runs a juice shop where he has two machines,M and N, for making juice.M is a big machines
+ which can make juice for 100 customers is one go,while machine N can make juice for only 4 customers at a time.
+ 
+ M consumers X units of power,while N consumers Y units of power. your task is to find and return
+ an Integer value representing the MINiMUM number of units of power toms machines will consume to serve P customeers
+ to serve P customers.He can run any combination of M and N.
+ 
+ EXAMPLE 1:
+ 105
+ 80
+ 10
+ 
+ OUTPUT : 100
+ Example 2:
+ input1:105
+ input2:80
+ input3:10
+ 
+ 
+OUTPUT : 100
+
+++++++++++++++++++++++++++++++++++++++++
+
+
+import java.util.*;
+public class Main
+{
+    static int minunits(int c, int x, int y)
+    {
+        int bm = c/100;
+        c = c%100;
+        int sm = (int)Math.ceil(c/4.0);
+        return bm*x + sm*y;
+    }
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+	    int c = sc.nextInt();
+	    int x = sc.nextInt();
+	    int y = sc.nextInt();
+	    int r = minunits(c,x,y);
+	    System.out.println(r);
+	}
+}
