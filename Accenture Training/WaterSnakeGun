@@ -1,0 +1,75 @@
+you are given a String S,which contains the moves played by two players sequencially in a game called
+ Snake water Gun.The rules of the games are as follows:
+ * snake beats water,water beats gun and gun beats Sake 
+ * The move played by player A and move played by player B in the first round will be Stored in the
+ String as "snakewater"
+ *SImilarly,in the second round,the moves will be stored in the String as "snakewatergunsnake".
+ There are total N round,that are played in the game and your task to find and return an integer value
+ representing how many rounds player A will win.
+ Note : the given string is in lowercase
+ Example1: 
+ input :3
+ input1:3
+ input2 :watergunwaterwaterguunwater
+ 
+ output:1
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+import java.util.*;
+public class Main
+{
+    public static String slice(String str)
+    {
+        char ch = str.charAt(0);
+        if(ch=='w')
+        {
+            return "water";
+        }
+        if(ch=='g')
+        {
+            return "gun";
+        }
+        
+        return "snake";
+    }
+    public static int wins(String p1move, String p2move)
+    {
+        if(p1move.equals("snake") && p2move.equals("water"))
+        {
+            return 1;
+        }
+        if(p1move.equals("water") && p2move.equals("gun"))
+        {
+            return 1;
+        }
+        if(p1move.equals("gun") && p2move.equals("snake"))
+        {
+            return 1;
+        }
+        
+        return 0;
+    }
+    public static int game(int n,String str)
+    {
+        int c =0;
+        for(int i=0;i<n;i++)
+        {
+            String p1move = slice(str);
+            str = str.substring(p1move.length());
+            String p2move = slice(str);
+            str = str.substring(p2move.length());
+            c += wins(p1move,p2move);
+        }
+        return c;
+    }
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+	    int n = sc.nextInt();
+	    sc.nextLine();
+	    String str = sc.nextLine();
+	    int r = game(n,str);
+	    System.out.println(r);
+	}
+}
