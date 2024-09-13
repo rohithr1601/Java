@@ -1,0 +1,66 @@
+Maximum pair product
+
+Example 1:
+input:
+input1:8
+input2:[11,1,2,8,10,11,15,7]
+
+output:[10,8]
+Explaination :
+Here the given array is {11,1,2,8,10,11,15,7}
+* there are 4 pairs in the arry,{10,8},{8,10},{11,7},{7,11} with their sum equal to 18.pair {8,10}
+ and {7,11} are not valid as the first element in each pair is less than the second element in the pair
+* The product of the pair {10,8},is returned as the putput
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+import java.util.*;
+public class Main
+{
+    static void pair(int[] a, int n)
+    {
+        Arrays.sort(a);
+        int[] r= new int[2];
+        int max = 0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j =i+1;j<n;j++)
+            {
+                if(a[i]+a[j]==18)
+                {
+                    int curr = a[i] * a[j];
+                    if(curr > max)
+                    {
+                        max = curr;
+                        r[0] = a[i];
+                        r[1] = a[j];
+                    }
+                }
+            }
+        }
+        if(r[0] < r[1])
+        {
+            int t = r[0];
+            r[0] = r[1];
+            r[1] = t;
+        }
+        for(int i =0;i<2;i++)
+        {
+            System.out.println(r[i]);
+        }
+    }
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+	    int n = sc.nextInt();
+	    int[] a = new int[n];
+	    for(int i =0;i<n;i++)
+	    {
+	        a[i] = sc.nextInt();
+	    }
+	    pair(a,n);
+	}
+}
