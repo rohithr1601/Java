@@ -1,0 +1,45 @@
+Island Life
+
+you are stuck on an island where they sell and eat sweets only.A person can buy at most 1 box per day with each box containing
+N pieces.to remain alive,you must consume E coconyt sweets daily for D days,but the catch is that you cannot purchase Sweets on Sundays
+your task is to find and return an integer value representing the minimum number of times you have to buy Sweets in order to stay 
+alive.if not possible,return -1.
+NOTE:the day start from Monday.
+Example 1:
+input 1:16 
+input 2:2 
+input 3:10 
+ OUTPUT:
+ 2
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+import java.util.*;
+public class Main
+{
+    static int alive(int n, int e, int d)
+    {
+        int r;
+        int days = d - (d/7);
+        int buysweets = days * n;
+        int total = e * d;
+        if(buysweets > total)
+        {
+            r = (int)Math.ceil(total/(double)n);
+        }
+        else{
+            return -1;
+        }
+        return r;
+    }
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+	    int n = sc.nextInt();
+	    int e = sc.nextInt();
+	    int d = sc.nextInt();
+	    int r = alive(n,e,d);
+	    System.out.println(r);
+	}
+}
