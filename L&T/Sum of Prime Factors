@@ -1,0 +1,136 @@
+is guaranteed that every positive integer can be written as a product of its prime factors. A
+
+prime factor is itself a prime number; multiplying all the prime factors of a number should yield the number itself.
+
+#include estddel
+
+#include <stdie
+
+#include <stdi
+
+Let's say that the given integer is 60 then it's prime factors are 2,3 and 5 as shown below:
+
+#include <stdl
+
+sinclude <str
+
+1.602×2×3×5 Hence, the final sum will be 2+2+3+5=12.
+
+1 ref (Drel
+
+int sumOfPe
+
+// Wri
+
+)
+
+O ref
+
+int mai
+
+2
+
+i
+
+7
+
+9
+
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+
+16
+
+17
+
+18
+
+19
+
+20
+
+21
+
+22
+
+כר
+
+Console
+
+Notes:
+
+Since 1 is not prime, it is not included in the product of prime factors, even when the number itself is prime, as is the case with 13.
+
+• A prime number is a number which is only divisible by itself and 1 (e.g. 2, 3, 5, 7, 11, 13 ...)
+
+Function description
+
+A
+
+Complete the sumOfPrimeFactors function in the editor below. It has the following parameter(s):
+
+Name
+
+Type
+
+Description
+
+num
+
+INTEGER
+
+The
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+#include <stdio.h>
+#include <math.h>
+
+// Function to compute the sum of prime factors of a given number
+int sumOfPrimeFactors(int num) {
+    int sum = 0;
+
+    // Handle the factor 2
+    while (num % 2 == 0) {
+        sum += 2;
+        num /= 2;
+    }
+
+    // Handle the factor 3
+    while (num % 3 == 0) {
+        sum += 3;
+        num /= 3;
+    }
+
+    // Handle other factors
+    for (int i = 5; i <= sqrt(num); i += 6) {
+        while (num % i == 0) {
+            sum += i;
+            num /= i;
+        }
+        while (num % (i + 2) == 0) {
+            sum += (i + 2);
+            num /= (i + 2);
+        }
+    }
+
+    // If num is a prime number greater than 2
+    if (num > 1) {
+        sum += num;
+    }
+
+    return sum;
+}
