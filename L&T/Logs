@@ -1,0 +1,245 @@
+Find instances of server breaches
+
+You are given a string legs representing server logs separated by a delimiter (e.g., ";"). Identify the total count of logs containing the word "breach",
+
+Note that the string may contain lowercase and uppercase letters, spaces, and digits (0-9).
+
+Note also that the case of "breach" letters doesn't matter, so "BrEach", "Breach" or "brEACH" should be also counted.
+
+For example, the answer for the string "breach brEach;; Breach" is 2, because the first and third logs contain the word "breach" at least once (the second log is empty because it's between two delimiters".
+
+Function description
+
+Complete the findBreach Count function in the editor below. It has the following parameter(s):
+
+1 Binchiade cassert.to #include setype.ha
+
+2
+
+#include <limits.tx
+
+4
+
+sinclude <math.ho
+
+#include <stdbool.ho
+
+#include <stddef.ho
+
+7
+
+#include <stdint.h>
+
+#include <stdio.h>
+
+9
+
+#include <stdlib.h
+
+10
+
+#include <string.h
+
+11 #include <string.
+
+12
+
+1 ref
+
+13 char readline(
+
+O ref
+
+14
+
+char trim(cha
+
+15
+
+16
+
+1 ref 10 ret
+
+0/2
+
+Name
+
+Type
+
+Description
+
+17
+
+int findBrea
+
+18
+
+// Writ
+
+Answered
+
+19
+
+logs
+
+STRING
+
+Server logs separated by a delimiter; i.e the semicolon
+
+20 }
+
+21
+
+22
+
+O ref כר int mai
+
+Return
+
+The function must return an INTEGER denoting the count of logs mentioning "breach".
+
+Constraints
+
+Find instances of server breaches
+
+Constraints
+
+1 ≤len(logs) ≤ 10°5
+
+Input format for debugging
+
+The first line contains a string, logs, denoting the server logs where each log is separated by a delimiter; ie the semicolon
+
+Sample Testcases
+
+Input
+
+0/2
+
+Service initiated; Data breach detected at 3PM; Service terminated
+
+17
+
+18
+
+19
+
+20
+
+21
+
+22
+
+Answered
+
+Successful login; Breach attempt detected; Unauthorize
+
+d access breach; User lo
+gged out
+
+
+include <assert.h>
+
+#include <ctype.h>
+
+#include <limits.h>
+
+#include <math.h>
+
+#include <stdbool.h>
+
+#include <stddef.h>
+
+#include <stdint.h>
+
+#include <stdio.h>
+
+#include <stdlib.h>
+
+11
+
+#include <string.h>
+
+12
+
+#include <string.h>
+
+13
+
+1 ref
+
+char* readline();
+
+14
+
+O ref
+
+15
+
+char* trim(char*);
+
+16
+
+1 ref | 0 ref
+
+17
+
+int findBreachCount(char* logs) { // Write your code here
+
+18
+
+19
+
+20
+
+}
+
+21
+
+22
+
+0 ref
+
+int ma
+in/ハイ
+
+Console
+
+You must execute your coc
+
+Custom Test Case
+
+0
+Three of a code slightly given complete the code by giving me the function finrbreachcount function only without any other function
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+public class Solution {
+
+    public static int findBreachCount(String logs) {
+        // Split the logs by the semicolon delimiter
+        String[] logEntries = logs.split(";");
+        
+        int count = 0;
+        // Iterate through each log entry
+        for (String log : logEntries) {
+            // Check if the log entry contains the word "breach" (case-insensitive)
+            if (log.toLowerCase().contains("breach")) {
+                count++;
+            }
+        }
+        
+        return count;
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        String logs = "breach;brEach;; Breach";
+        int result = findBreachCount(logs);
+        System.out.println(result); // Output: 2
+    }
+}
